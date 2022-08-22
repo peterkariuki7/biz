@@ -24,6 +24,12 @@ Route::get('/dashboard', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('supplier','SupplierController');
+
+Route::group(['middleware'=>['auth','admin']],function(){
+      Route::resource('supplier','SupplierController');
+});
+Route::resource('appointment','AppointmentController');
+
+
 
 

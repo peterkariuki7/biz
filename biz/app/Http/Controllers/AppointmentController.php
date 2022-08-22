@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
-class SupplierController extends Controller
+
+class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +13,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        dd(\Auth::user()->role->name);
-        $users=user::get();
-        return view('admin.supplier.index',compact('users'));
-     }
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,8 +23,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $roles = Role::where('name', '!=', 'client')->get();
-       return view('admin.supplier.create', ['roles' => $roles,]);
+        return view('admin.appointment.create');
     }
 
     /**
@@ -39,19 +34,8 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data=$request->all();
-        $image=$request->file('image');
-        $name=$image->hashName();
-        $destination=public_path('/images');
-        $image->move($destination,$name);
-
-        $data['image']=$name;
-        $data['password']=bcrypt($request->password);
-        user::create($data);
-
-        return redirect()->back()->with('message','Client added successfully');
-     }
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -61,7 +45,7 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        return"show";
+        //
     }
 
     /**
@@ -72,8 +56,7 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        $user=user::find($id);
-        return view('admin.supplier.edit',compact('user'));
+        //
     }
 
     /**
@@ -98,5 +81,4 @@ class SupplierController extends Controller
     {
         //
     }
-
 }

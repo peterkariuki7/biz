@@ -63,7 +63,7 @@
                         <div class="col-lg-6">
                             <label for="">Education</label>
                             <input type="text" name="education" class="form-control"
-                                placeholder="education"value="{{ $user->address }}">
+                                placeholder="education"value="{{ $user->education }}">
                         </div>
                     </div>
 
@@ -71,16 +71,16 @@
                         <div class="col-lg-6">
                             <label for="">Address</label>
                             <input type="text" name="address" class="form-control"
-                                placeholder="supplier address"value="{{ old('address') }}">
+                                placeholder="supplier address"value="{{ $user->address}}">
                         </div>
                         <div class="col-lg-6">
                             <label for="">Specialization</label>
-                            <input type="text" name="department" class="form-control"
-                               <option value="">Please select</option>
-                               <option value="Tshirtprinting">T_Shirt printing</option>
-                               <option value="Design">Designt</option>
-                               <option value="Assistant">Assistant</option>
-                               <option value="advertising">Adertising</option>
+                            <select name="department" class="form-control">
+                           @foreach ( ['Tshirtprinting','Design','Assistant','Advertising'] as $department)
+                            <option value="{{$department}}" @if ($user->department==$department)selected
+                                @endif>{{$department}}</option>
+                                @endforeach
+                            </select>
 
                         </div>
                     </div>
@@ -88,7 +88,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label for="">Phone no.</label>
-                            <input type="text" name="phone_number" class="form-control" {{--value="{{$phone_number}}--}}">
+                            <input type="text" name="phone_number" class="form-control"value="{{$user->
+                            phone_number}}">
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -111,7 +112,7 @@
                     <select name="role_id" class="form-control">
                         <option value="">Please select role</option>
                         @foreach (App\Role::where('name','!=','client')->get() as $role)
-                            <option value="{{ $role->id }}" @if($user->role_id==$role->id)
+                     <option value="{{ $role->id }}" @if($user->role_id==$role->id)
                                 selected @endif>{{$role->name}}
 
                             </option>
@@ -122,7 +123,9 @@
                         <label for="exampleTextarea1">About</label>
                         <textarea class="form-control" id="
                         exampleTextarea1"
-                            rows="4"name="description"placeholder="About Me"></textarea>
+                            rows="4"name="description"placeholder="About Me">
+                        {{$user->description}}
+                    </textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
